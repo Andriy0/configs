@@ -1,0 +1,3 @@
+#!/bin/bash
+
+wine $HOME/Downloads/mc12cd/mc12.exe

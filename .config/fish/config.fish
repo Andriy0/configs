@@ -1,5 +1,5 @@
 # Variables
-set -x PATH "$PATH:~/.local/bin:/usr/local/go/bin"
+set -x PATH "$PATH:$HOME/platform-tools:$HOME/.local/bin:/usr/local/go/bin"
 set -x QT_QPA_PLATFORMTHEME "qt5ct"
 set -x QT_STYLE_OVERRIDE "kvantum"
 set -x SAL_USE_VCLPLUGIN "gtk3"

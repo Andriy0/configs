@@ -120,15 +120,14 @@ myStartupHook = do
     spawnOnce "${HOME}/.local/bin/remaps &"
     spawnOnce "xsetroot -cursor_name left_ptr &"
     spawnOnce "nitrogen --restore &"
-    spawnOnce "picom --experimental-backend &"
-    spawnOnce myTerminal
-    spawnOnce "telegram-desktop"
-    spawnOnce "code-oss"
-    spawnOnce "goldendict"
-    spawnOnce myBrowser
+    spawnOnce "picom --experimental-backends &"
     spawnOnce "nm-applet &"
     spawnOnce "trayer --edge top --distancefrom left --distance 380 --align center --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x282c34  --height 22"
-    -- spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x292d3e  --height 22 &"
+    spawnOnce myTerminal
+    -- spawnOnce "telegram-desktop"
+    -- spawnOnce "code-oss"
+    -- spawnOnce "goldendict"
+    -- spawnOnce myBrowser
     setWMName "LG3D"
 
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a

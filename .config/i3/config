@@ -13,6 +13,10 @@ set $mod Mod4
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+set $term alacritty
+
+set $browser chromium
+
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -32,6 +36,18 @@ client.focused_inactive $cl_back $cl_back $cl_fore $cl_back $cl_back
 client.unfocused        $cl_back $cl_back $cl_fore $cl_back $cl_back
 client.urgent           $cl_urge $cl_urge $cl_fore $cl_urge $cl_urge
 
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
 
 #
 # Fonts, borders gaps and bar
@@ -46,18 +62,18 @@ default_border pixel 1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Mononoki Nerd Font 12
+font pango:Mononoki Nerd Font Bold 13
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        colors {
-            background #292d3e
-            separator #009ddc
-        }
-        status_command i3blocks
-        position top
-}
+# bar {
+#         colors {
+#             background #292d3e
+#             separator #009ddc
+#         }
+#         status_command i3blocks
+#         position top
+# }
 
 
 #
@@ -78,7 +94,21 @@ for_window [class="qt5ct"] floating enable
 
 for_window [class="Kvantum Manager"] floating enable
 
-for_window [title="float"] floating enable
+for_window [class="__float"] floating enable, resize set 640 480
+
+for_window [class="__scratchpad"] floating enable, resize set 640 480
+
+for_window [class="__scratchpad"] move scratchpad
+
+
+#
+# Assign workspaces
+#
+
+assign [class="Firefox"] workspace 2
+assign [class="Chromium"] workspace 2
+assign [class="Code - OSS"] workspace 3
+assign [class="TelegramDesktop"] workspace 4
 
 
 #
@@ -86,16 +116,16 @@ for_window [title="float"] floating enable
 #
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Return exec --no-startup-id $term
 
 # start a terminal (floating)
-bindsym $mod+Shift+Return exec --no-startup-id alacritty --title float
+bindsym $mod+Shift+Return exec --no-startup-id $term --class Alacritty,__float
 
 # start dmenu (a program launcher)
-bindsym $mod+p exec --no-startup-id dmenu_run
+bindsym $mod+p exec --no-startup-id dmenu_run -fn 'Mononoki Nerd Font Bold Mono-13'
 
 # start web browser
-bindsym $mod+w exec --no-startup-id chromium
+bindsym $mod+w exec --no-startup-id $browser
 
 # start vscode
 bindsym $mod+c exec --no-startup-id code-oss
@@ -237,8 +267,14 @@ bindsym $mod+r mode "resize"
 # Autostart
 #
 
-exec --no-startup-id ~/.local/bin/remaps &
-exec --no-startup-id picom &
-exec --no-startup-id nitrogen --restore &
-exec --no-startup-id nm-applet &
-exec --no-startup-id blueman-applet &
+exec --no-startup-id ~/.local/bin/remaps
+exec --no-startup-id picom
+exec --no-startup-id nitrogen --restore
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec --no-startup-id nm-applet
+# exec --no-startup-id blueman-applet
+exec --no-startup-id i3-msg 'workspace 1; exec $term;'
+exec --no-startup-id telegram-desktop
+exec --no-startup-id code-oss
+exec --no-startup-id $browser
+exec --no-startup-id $term --class Alacritty,__scratchpad

@@ -35,8 +35,7 @@ Config { -- font    = "xft:Ubuntu:weight=bold:pixelsize=14:antialias=true:hintin
                     , Run Com "/home/dt/.local/bin/pacupdate" [] "pacupdate" 36000
                       -- Runs a standard shell command 'uname -r' to get kernel version
                     , Run Com "uname" ["-r"] "" 3600
-                      -- Prints out the left side items such as workspaces, layout, etc.
-                      -- The workspaces are 'clickable' in my configs.
+                      -- Battery status
                     , Run Battery [ "--template" , "<fc=#c792ea>Batt:</fc> <acstatus>"
                             , "--Low"      , "10"        -- units: %
                             , "--High"     , "80"        -- units: %
@@ -52,10 +51,13 @@ Config { -- font    = "xft:Ubuntu:weight=bold:pixelsize=14:antialias=true:hintin
                                       -- charged status
                                       , "-i"	, "<fc=#98be65>Charged</fc>"
                             ] 50
+                      -- Keyboard layout
                     , Run Kbd [ ("us(dvorak)" , "<fc=#00008B>dv</fc>")
                              , ("us"         , "<fc=#ffffff>us</fc>")
                              , ("ua"         , "<fc=#ffffff>ua</fc>")
                              ]
+                      -- Prints out the left side items such as workspaces, layout, etc.
+                      -- The workspaces are 'clickable' in my configs.
                     , Run UnsafeStdinReader
                     ]
        , sepChar = "%"

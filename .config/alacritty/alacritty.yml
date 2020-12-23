@@ -117,7 +117,7 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
-    family: Mononoki Nerd Font
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -136,7 +136,7 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
-    family: Mononoki Nerd Font
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -145,7 +145,7 @@ font:
   italic:
     # Font family
     #
-    # If the italic family is not specified, it will fall back to the
+   # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
     # family: SauceCodePro Nerd Font Mono
     # family: CodeNewRoman Nerd Font
@@ -155,7 +155,7 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
-    family: Mononoki Nerd Font
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Italic
@@ -174,7 +174,7 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
-    family: Mononoki Nerd Font
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Bold Italic
@@ -185,7 +185,7 @@ font:
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
-    x: 1
+    x: 0
     y: 1
 
   # Glyph offset determines the locations of the glyphs within their cells with
@@ -212,14 +212,14 @@ font:
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: true
 
 # Colors (Tomorrow Night Bright)
 colors:
   # Default colors
   primary:
-    background: '0x292d3e'
-    foreground: '0xbbc5ff'
+    background: '0x282c34'
+    foreground: '0xbbc2cf'
 
     # Bright and dim foreground colors
     #
@@ -243,30 +243,32 @@ colors:
   # background is unset, selection color will be the inverse of the cell colors.
   # If only text is unset the cell text color will remain the same.
   selection:
+    # text: '0xbbc2cf'
+    # background: '0x282c34'
     text: '0x292d3e'
     background: '0xbbc5ff'
 
   # Normal colors
   normal:
-    black:   '0x292d3e'
-    red:     '0xf07178'
-    green:   '0xc3e88d'
-    yellow:  '0xffcb6b'
-    blue:    '0x82aaff'
-    magenta: '0xc792ea'
-    cyan:    '0x89ddff'
-    white:   '0xd0d0d0'
+    black:   '0x1c1f24'
+    red:     '0xff6c6b'
+    green:   '0x98be65'
+    yellow:  '0xda8548'
+    blue:    '0x51afef'
+    magenta: '0xc678dd'
+    cyan:    '0x5699af'
+    white:   '0x202328'
 
   # Bright colors
   bright:
-    black:   '0x434758'
-    red:     '0xff8b92'
-    green:   '0xddffa7'
-    yellow:  '0xffe585'
-    blue:    '0x9cc4ff'
-    magenta: '0xe1acff'
-    cyan:    '0xa3f7ff'
-    white:   '0xffffff'
+    black:   '0x5b6268'
+    red:     '0xda8548'
+    green:   '0x4db5bd'
+    yellow:  '0xecbe7b'
+    blue:    '0x3071db'   # This is 2257a0 in Doom Emacs but I lightened it.
+    magenta: '0xa9a1e1'
+    cyan:    '0x46d9ff'
+    white:   '0xdfdfdf'
 
   # Dim colors
   #
@@ -323,7 +325,7 @@ colors:
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
 # background_opacity: 1.0
-background_opacity: 0.95
+background_opacity: 0.80
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
@@ -570,8 +572,8 @@ key_bindings:
   - { key: Insert,   mods: Shift,         action: PasteSelection   }
   - { key: Key0,     mods: Control,       action: ResetFontSize    }
   - { key: Equals,   mods: Control,       action: IncreaseFontSize }
-    #  - { key: Add,      mods: Control,       action: IncreaseFontSize }
-    #  - { key: Subtract, mods: Control,       action: DecreaseFontSize }
+  - { key: Plus,     mods: Control,       action: IncreaseFontSize }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
   - { key: Minus,    mods: Control,       action: DecreaseFontSize }
 
   - { key: Paste,                    action: Paste                            }
@@ -581,5 +583,4 @@ key_bindings:
   - { key: PageUp,    mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }
   - { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
   - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
-  - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
-
+  - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       } 

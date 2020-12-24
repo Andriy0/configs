@@ -128,6 +128,10 @@ myStartupHook = do
     -- spawnOnce "code-oss"
     -- spawnOnce "goldendict"
     -- spawnOnce myBrowser
+    spawnOnce "qutebrowser"
+    spawnOnce "mpd &"
+    spawnOnce "mpDris2 &"
+    spawnOnce "emacs --daemon"
     setWMName "LG3D"
 
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -257,6 +261,7 @@ myManageHook = composeAll
     , className =? "Code - OSS" --> doShift ( myClickableWorkspaces !! 2 )
     , className =? "TelegramDesktop" --> doShift ( myClickableWorkspaces !! 3 )
     , className =? "GoldenDict" --> doShift ( myClickableWorkspaces !! 4 )
+    , className =? "qutebrowser" --> doShift ( myClickableWorkspaces !! 1 )
     , className =? "MPlayer" --> doFloat
     , resource  =? "Toolkit" --> doFloat -- for Firefox
     , title =? "Picture in picture" --> doFloat -- for Chromium
@@ -279,7 +284,7 @@ myManageHook = composeAll
 myKeys :: [(String, X ())]
 myKeys = 
     -- Xmonad
-        [ ("M-c", spawn "xmonad --recompile; xmonad --restart")
+        [ ("M-S-c", spawn "xmonad --recompile; xmonad --restart")
         , ("M-S-q", io exitSuccess)             -- Quits xmonad
 
     -- Kill windows
@@ -326,13 +331,22 @@ myKeys =
         , ("M-S-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
         , ("M-C-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
 
-    -- Multimedia keys
+    -- Volume Controls
+        , ("<XF86AudioMute>", spawn "amixer set Master toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
 
-    -- Brightness controls
-        , ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 1")
-        , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 1")
+    -- Multimedia Controls 
+        , ("M-<F2>", spawn "playerctl --player mpd volume .1-")
+        , ("M-<F3>", spawn "playerctl --player mpd volume .1+")
+        , ("M-<F5>", spawn "playerctl --player mpd stop")
+        , ("M-<F6>", spawn "playerctl --player mpd previous")
+        , ("M-<F7>", spawn "playerctl --player mpd play-pause")
+        , ("M-<F8>", spawn "playerctl --player mpd next")
+
+    -- Brightness Controls
+        , ("<XF86MonBrightnessUp>", spawn "doas light -A 1")
+        , ("<XF86MonBrightnessDown>", spawn "doas light -U 1")
 
     -- Misc
         , ("M-,", sendMessage (IncMasterN 1)) -- Increment the number of windows in the master area

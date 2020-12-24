@@ -104,10 +104,13 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
+                , NS "mpv_term" spawnMpvTerm findMpvTerm manageTerm
                 ]
   where
-    spawnTerm  = myTerminal ++ " --class scratchpad,Alacritty"
+    spawnTerm  = myTerminal ++ " --class scratchpad"
     findTerm   = resource =? "scratchpad"
+    spawnMpvTerm = myTerminal ++ " --class mpv_term"
+    findMpvTerm = resource =? "mpv_term"
     manageTerm = customFloating $ W.RationalRect l t w h
                where
                  h = 0.5
@@ -276,6 +279,7 @@ myManageHook = composeAll
     , className =? "Kvantum Manager" --> doFloat
     , className =? "Ristretto" --> doFloat
     , className =? "Qalculate-gtk" --> doFloat
+    , resource =? "float_term" --> doFloat
     , resource =? "desktop_window" --> doIgnore
     , resource =? "kdesktop" --> doIgnore 
     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
@@ -306,6 +310,7 @@ myKeys =
 
     -- Launch some programs
         , ("M-<Return>", spawn myTerminal)
+        -- , ("M-S-<Return>", spawn $ myTerminal ++ " --class float_term")
         , ("M-p", spawn "dmenu_run -fn 'Mononoki Nerd Font Bold Mono-13'") -- launch dmenu
         , ("M-x", spawn "betterlockscreen -l dimblur") -- lock screen
         , ("M-s", spawn "flameshot gui") -- flameshot
@@ -313,6 +318,7 @@ myKeys =
     
     -- Scratchpads
         , ("M-e", namedScratchpadAction myScratchPads "terminal")
+        , ("M-r", namedScratchpadAction myScratchPads "mpv_term")
 
     -- Window Copying Bindings
         , ("M-a"            , windows copyToAll ) -- Pin to all workspaces
@@ -337,12 +343,12 @@ myKeys =
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
 
     -- Multimedia Controls 
-        , ("M-<F2>", spawn "playerctl --player mpd volume .1-")
-        , ("M-<F3>", spawn "playerctl --player mpd volume .1+")
-        , ("M-<F5>", spawn "playerctl --player mpd stop")
-        , ("M-<F6>", spawn "playerctl --player mpd previous")
-        , ("M-<F7>", spawn "playerctl --player mpd play-pause")
-        , ("M-<F8>", spawn "playerctl --player mpd next")
+        , ("M-<F2>", spawn "playerctl volume .1-")
+        , ("M-<F3>", spawn "playerctl volume .1+")
+        , ("M-<F5>", spawn "playerctl stop")
+        , ("M-<F6>", spawn "playerctl previous")
+        , ("M-<F7>", spawn "playerctl play-pause")
+        , ("M-<F8>", spawn "playerctl next")
 
     -- Brightness Controls
         , ("<XF86MonBrightnessUp>", spawn "doas light -A 1")

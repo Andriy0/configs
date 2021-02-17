@@ -62,8 +62,8 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
+    awful.layout.suit.floating,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
@@ -246,7 +246,7 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey, "Shift"   }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
@@ -343,8 +343,8 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
 
     -- Brightness controls
-    awful.key({  }, "XF86MonBrightnessUp", function () awful.spawn("doas light -A 1") end),
-    awful.key({  }, "XF86MonBrightnessDown", function () awful.spawn("doas light -U 1") end),
+    awful.key({  }, "XF86MonBrightnessUp", function () awful.spawn("light -A 1") end),
+    awful.key({  }, "XF86MonBrightnessDown", function () awful.spawn("light -U 1") end),
 
     -- Volume controls
     awful.key({  }, "XF86AudioMute", function () awful.spawn("amixer set Master toggle") end),
@@ -358,6 +358,12 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "F6", function () awful.spawn("playerctl previous") end),
     awful.key({ modkey }, "F7", function () awful.spawn("playerctl play-pause") end),
     awful.key({ modkey }, "F8", function () awful.spawn("playerctl next") end),
+
+    -- Screenshot
+    awful.key({ modkey }, "s", function () awful.spawn("flameshot gui") end),
+
+    -- Rofi
+    awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end),
 
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
@@ -612,17 +618,20 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 autorun = true
 autorunApps = 
 {
-    -- "~/.local/bin/remaps",
-    -- "~/.local/bin/remaps",
+    -- "setxkbmap -option caps:ctrl_modifier,altwin:menu_win",
     "xset r rate 300 50",
-    -- "picom",
+    "picom",
     "nitrogen --restore",
     "xsetroot -cursor_name left_ptr",
+    "xsettingsd",
     "nm-applet",
-    -- "doas pkill volumeicon && volumeicon",
-    -- "mpd",
-    -- "mpDris2",
-    -- "emacs --daemon"
+    -- "volumeicon",
+    "pasystray",
+    "mpd",
+    "mpDris2",
+    -- "emacs --daemon",
+    "redshift",
+    "xscreensaver -no-splash"
 }
 if autorun then
     for app = 1, #autorunApps do
